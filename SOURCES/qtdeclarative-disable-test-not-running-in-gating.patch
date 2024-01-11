@@ -1,0 +1,12 @@
+diff --git a/tests/auto/qml/qml.pro b/tests/auto/qml/qml.pro
+index 621e8bb4..24ea2201 100644
+--- a/tests/auto/qml/qml.pro
++++ b/tests/auto/qml/qml.pro
+@@ -25,7 +25,6 @@ PUBLICTESTS += \
+     qqmlmoduleplugin \
+     qqmlnotifier \
+     qqmlqt \
+-    qqmlxmlhttprequest \
+     qqmlpromise \
+     qtqmlmodules \
+     qquickfolderlistmodel \

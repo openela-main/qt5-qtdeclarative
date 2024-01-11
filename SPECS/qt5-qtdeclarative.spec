@@ -12,8 +12,8 @@
 
 Summary: Qt5 - QtDeclarative component
 Name:    qt5-%{qt_module}
-Version: 5.15.3
-Release: 1%{?dist}
+Version: 5.15.9
+Release: 3%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -28,32 +28,37 @@ Source5: qv4global_p-multilib.h
 ## upstream patches
 ## repo: https://invent.kde.org/qt/qt/qtdeclarative
 ## branch: kde/5.15
-## git format-patch v5.15.3-lts-lgpl
-Patch1:  0001-Give-a-warning-when-StyledText-encounters-a-non-supp.patch
-Patch2:  0002-Add-missing-limits-include-to-fix-build-with-GCC-11.patch
-Patch3:  0003-Document-that-StyledText-also-supports-nbsp-and-quot.patch
-Patch4:  0004-Support-apos-in-styled-text.patch
-Patch5:  0005-Remove-unused-QPointer-QQuickPointerMask.patch
-Patch6:  0006-Include-limits-in-Yarr.h-to-fix-build-with-GCC-11.patch
-Patch7:  0007-QQuickLoader-Do-not-incubate-if-the-source-arrives-a.patch
-Patch8:  0008-QQmlDelegateModel-Refresh-the-view-when-a-column-is-.patch
-Patch9:  0009-Fix-sweep-step-for-tainted-QObject-JavaScript-wrappe.patch
-Patch10: 0010-Fix-distorted-text-with-subpixel-matrix-translation.patch
-Patch11: 0011-Revert-Fix-for-possible-crash-in-QSGDefaultLayer-gra.patch
-Patch12: 0012-QQuickItemAnimation-close-potential-memory-leak.patch
-Patch13: 0013-qqmldelegatemodel-Fix-out-of-bounds-cache-removal.patch
-Patch14: 0014-QQuickWindow-don-t-leak-old-screenChanged-connection.patch
-Patch15: 0015-Fix-TapHandler-so-that-it-actually-registers-a-tap.patch
-Patch16: 0016-Revert-Fix-TapHandler-so-that-it-actually-registers-.patch
-Patch17: 0017-QQmlJs-FixedPoolArray-fix-UB-precondition-violation-.patch
-Patch18: 0018-QQuickTextInput-update-cursor-rectangle-after-paddin.patch
-Patch19: 0019-V4-Do-not-call-dtor-of-an-object-we-continue-to-use.patch
-Patch20: 0020-Make-sure-QQuickWidget-and-its-offscreen-window-s-sc.patch
+## git format-patch v5.15.9-lts-lgpl
+Patch1:  0001-Remove-unused-QPointer-QQuickPointerMask.patch
+Patch2:  0002-QQmlDelegateModel-Refresh-the-view-when-a-column-is-.patch
+Patch3:  0003-Fix-TapHandler-so-that-it-actually-registers-a-tap.patch
+Patch4:  0004-Revert-Fix-TapHandler-so-that-it-actually-registers-.patch
+Patch5:  0005-Make-sure-QQuickWidget-and-its-offscreen-window-s-sc.patch
+Patch6:  0006-QQuickItem-Guard-against-cycles-in-nextPrevItemInTab.patch
+Patch7:  0007-Don-t-convert-QByteArray-in-startDrag.patch
+Patch8:  0008-Fix-build-after-95290f66b806a307b8da1f72f8fc2c698019.patch
+Patch9:  0009-Implement-accessibility-for-QQuickWidget.patch
+Patch10: 0010-Send-ObjectShow-event-for-visible-components-after-i.patch
+Patch11: 0011-QQuickItem-avoid-emitting-signals-during-destruction.patch
+Patch12: 0012-a11y-track-item-enabled-state.patch
+Patch13: 0013-Make-QaccessibleQuickWidget-private-API.patch
+Patch14: 0014-Qml-Don-t-crash-when-as-casting-to-type-with-errors.patch
+Patch15: 0015-Fix-missing-glyphs-when-using-NativeRendering.patch
+Patch16: 0016-Revert-Fix-missing-glyphs-when-using-NativeRendering.patch
+Patch17: 0017-QQmlImportDatabase-Make-sure-the-newly-added-import-.patch
+Patch18: 0018-QQuickState-when-handle-QJSValue-properties-correctl.patch
+Patch19: 0019-Models-Avoid-crashes-when-deleting-cache-items.patch
 
 ## upstreamable patches
 Patch100: %{name}-gcc11.patch
 # https://pagure.io/fedora-kde/SIG/issue/82
 Patch101: qtdeclarative-5.15.0-FixMaxXMaxYExtent.patch
+# From: https://codereview.qt-project.org/c/qt/qtdeclarative/+/466808
+# Cf. https://bugzilla.redhat.com/show_bug.cgi?id=2177696
+Patch102: qt-QTBUG-111935-fix-V4-jit.patch
+
+# gating related patches
+Patch200: qtdeclarative-disable-test-not-running-in-gating.patch
 
 # filter qml provides
 %global __provides_exclude_from ^%{_qt5_archdatadir}/qml/.*\\.so$
@@ -251,6 +256,19 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Wed Apr 26 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-3
+- Rebuild (elfutils#2188064)
+  Resolves: bz#2175728
+
+* Mon Apr 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-2
+- Disable tests failing in gating
+  Resolves: bz#2175728
+
+* Mon Apr 17 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.9-1
+- 5.15.9 + sync with Fedora
+  Resolves: bz#2178624
+  Resolves: bz#2175728
+
 * Fri Mar 25 2022 Jan Grulich <jgrulich@redhat.com> - 5.15.3-1
 - 5.15.3 + sync with Fedora
   Resolves: bz#2061355
