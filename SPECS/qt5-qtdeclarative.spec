@@ -12,7 +12,7 @@
 Summary: Qt5 - QtDeclarative component
 Name:    qt5-%{qt_module}
 Version: 5.15.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -58,6 +58,12 @@ Patch101: qtdeclarative-5.15.0-FixMaxXMaxYExtent.patch
 # From: https://codereview.qt-project.org/c/qt/qtdeclarative/+/466808
 # Cf. https://bugzilla.redhat.com/show_bug.cgi?id=2177696
 Patch102: qt-QTBUG-111935-fix-V4-jit.patch
+
+# CVE-2025-12385
+# https://code.qt.io/cgit/qt/qtdeclarative.git/commit/?id=144ce34e846b3f732bdb003f99b1f9455425416f
+# https://code.qt.io/cgit/qt/qtdeclarative.git/commit/?id=4aaf9bf21f7cc69d73066785e254b664fcc82025
+Patch103: qtdeclarative-rich-text-limit-size-of-text-object.patch
+Patch104: qtdeclarative-increase-robustness-of-img-tag-in-text-component.patch
 
 
 # filter qml provides
@@ -254,6 +260,10 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Tue Oct 20 2026 RHEL Packaging Agent <redhat-ymir-agent@redhat.com> - 5.15.3-3
+- CVE-2025-12385 qt5-qtdeclarative: Improper validation of <img> tag size in Text component parser
+  Resolves: RHEL-287799
+
 * Tue Apr 25 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.3-2
 - Fix V4 JIT generating bad JIT code on ARM64
   Resolves: bz#2178625
